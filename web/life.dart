@@ -6,7 +6,7 @@ Random rand = new Random();
 
 class Cell extends Sprite {  
   final neighbors = new List();
-  final wrappedNeighbors = new List();
+  final plusWrappedNeighbors = new List();
   bool state;
   
   Cell() {
@@ -23,10 +23,12 @@ class Cell extends Sprite {
     this.state = state;
     alpha = state ? 1 : 0;
   }
+  
+  List<Cell> getNeighbors(bool wrap) => wrap ? plusWrappedNeighbors : neighbors;
 }
 
 class Life extends Sprite {
-  List<List<Cell>> cells;
+  List<Cell> cells;
   Set<int> born, stays;
   int cellSize;
   int speed;
@@ -72,63 +74,58 @@ class Life extends Sprite {
     int y = e.stageY ~/ cellSize;
     
     if ((lastMouseX != x || lastMouseY != y) && inBounds(x, y)) {
-      cells[x][y].toggle();
+      (e.target as Cell).toggle();
       lastMouseX = x;
       lastMouseY = y;
     }
   }
   
   void tick() {
-    final nextState = cells.map ( (List l) =>
-      l.map ( (Cell c) =>
-       determineNextState(c)
-      ).toList()
-    ).toList();
+    final nextState = cells.map(determineNextState).toList();
     
-    for(var y = 0; y < size; y++) {
-      for(var x = 0; x < size; x++) {
-        cells[x][y].set(nextState[x][y]);
-      }
+    for(var i = 0; i < cells.length; i++) {
+      cells[i].set(nextState[i]);
     }
   }
   
-  bool determineNextState(Cell c) {
-    var n = c.neighbors.fold(0, (int acc, Cell c) => c.state ? acc + 1 : acc);
-    if (wrap) n += c.wrappedNeighbors.fold(0, (int acc, Cell c) => c.state ? acc + 1 : acc);
-    return c.state ? stays.contains(n) : born.contains(n);
+  bool determineNextState(Cell cell) {
+    final n = cell.getNeighbors(wrap).fold(0, (int acc, Cell c) => c.state ? acc + 1 : acc);
+    return cell.state ? stays.contains(n) : born.contains(n);
   }
   
   List initializeCells() {    
-    cells = new List(size).map((_) => new List(size).map((_) => new Cell()).toList()).toList();
+    final cells2d = new List(size).map((_) => new List(size).map((_) => new Cell()).toList()).toList();
     for(var y = 0; y < size; y++) {
       for(var x = 0; x < size; x++) {
-        Cell cell = cells[x][y];
+        Cell cell = cells2d[x][y];
         cell.draw(cellSize);
         cell.x = x * cellSize;
         cell.y = y * cellSize;
         addChild(cell);
         List n = cell.neighbors;
-        List wn = cell.wrappedNeighbors;
+        List wn = cell.plusWrappedNeighbors;
         
         for(var ox = x-1; ox <= x+1; ox++) {
           for(var oy = y-1; oy <= y+1; oy++) {
             if (ox != x || oy != y) {
               if (inBounds(ox, oy)) {
-                n.add(cells[ox][oy]);
+                n.add(cells2d[ox][oy]);
               } else {
                 var wx = ox, wy = oy;
                 if (ox == -1) wx = size - 1;
                 if (ox == size) wx = 0;
                 if (oy == -1) wy = size - 1;
                 if (oy == size) wy = 0;
-                wn.add(cells[wx][wy]);
+                wn.add(cells2d[wx][wy]);
               }
             }
           }
         }
+        wn.addAll(n);
         
       }
     }
+    cells = cells2d.expand((i) => i).toList();
   }
   
   void drawGrid() {
@@ -149,7 +146,7 @@ class Life extends Sprite {
   }
   
   void clear() {
-    cells.forEach((list) => list.forEach((cell) => cell.set(false)));
+    cells.forEach((cell) => cell.set(false));
     lastMouseX = lastMouseY = -1;
   }
     
