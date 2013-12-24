@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+
+<html>
+<head>
+<meta charset="utf-8">
+<title>Life.</title>
+<link rel="stylesheet" href="life.css">
+</head>
+<body>
+  
+  <div id="help">
+    <a href="http://en.wikipedia.org/wiki/Conway%27s_Game_of_Life" target="_tab">What is Life?</a>
+  </div>
+  
+  <div id="content">
+    <canvas id="stage" width="640" height="640"></canvas>
+    <br>
+    <button id="playButton">Play!</button>
+    <button id="clearButton">Clear</button>
+    <br>
+    <input type="checkbox" id="gridCheckbox" checked>Grid?
+    <input type="checkbox" id="wrapCheckbox" checked>Wrap?
+    <br>
+    Speed (in ms): 1<input type="range" id="speedSlider" min="1" max="1001" step="100" value="100">1000
+    <br>
+    Cell size (by 2^n px): 4<input type="range" id="cellSlider" min="2" max="7" step="1" value="3">128
+    <br>
+    Rules: <input id="rulesInput" value="B3/S23">
+  </div>
+
+  <script type="application/dart" src="main.dart"></script>
+  <script src="packages/browser/dart.js"></script>
+</body>
+</html>

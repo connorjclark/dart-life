@@ -1,0 +1,28 @@
+body {
+  background-color: #ababab;
+  font-family: 'Open Sans', sans-serif;
+  font-size: 14px;
+  font-weight: normal;
+  line-height: 1.2em;
+  margin: 15px;
+}
+
+#content {
+  background-color: #ababab;
+  border: double;
+  width: 640px;
+  height: 640px;
+  margin-left: auto;
+  margin-right: auto;
+  text-align: center;
+}
+
+#invalid {
+  background-color: #FFA0A0;
+}
+
+#help {
+  position: fixed;
+  top: 0;
+  right: 0;
+}
