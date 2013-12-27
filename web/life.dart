@@ -73,7 +73,7 @@ class Life extends Sprite {
     int x = e.stageX ~/ cellSize;
     int y = e.stageY ~/ cellSize;
     
-    if ((lastMouseX != x || lastMouseY != y) && inBounds(x, y)) {
+    if ((lastMouseX != x || lastMouseY != y) && e.target is Cell) {
       (e.target as Cell).toggle();
       lastMouseX = x;
       lastMouseY = y;

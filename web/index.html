@@ -7,27 +7,42 @@
 <link rel="stylesheet" href="life.css">
 </head>
 <body>
-  
-  <div id="help">
-    <a href="http://en.wikipedia.org/wiki/Conway%27s_Game_of_Life" target="_tab">What is Life?</a>
+    
+  <div id="help" class="panel">
+    <div class="content">
+      <p>
+        <iframe src="http://en.wikipedia.org/wiki/Conway's_Game_of_Life" width="100%" height="100%"></iframe>
+      </p>
+    </div>
   </div>
   
-  <div id="content">
-    <canvas id="stage" width="640" height="640"></canvas>
-    <br>
-    <button id="playButton">Play!</button>
-    <button id="clearButton">Clear</button>
-    <br>
-    <input type="checkbox" id="gridCheckbox" checked>Grid?
-    <input type="checkbox" id="wrapCheckbox" checked>Wrap?
-    <br>
-    Speed (in ms): 10<input type="range" id="speedSlider" min="10" max="1000" step="1" value="100">1000
-    <br>
-    Cell size (by 2^n px): 4<input type="range" id="cellSlider" min="2" max="7" step="1" value="3">128
-    <br>
-    Rules: <input id="rulesInput" value="B3/S23">
+  <div id="life" class="panel">
+    <div class="content">
+      <p>
+        <canvas id="stage" width="640" height="640"></canvas>
+        <br>
+        <button id="playButton">Play!</button>
+        <button id="clearButton">Clear</button>
+        <br>
+        <input type="checkbox" id="gridCheckbox" checked>Grid?
+        <input type="checkbox" id="wrapCheckbox" checked>Wrap?
+        <br>
+        Speed (in ms): 10<input type="range" id="speedSlider" min="10" max="1000" step="1" value="100">1000
+        <br>
+        Cell size (by 2^n px): 4<input type="range" id="cellSlider" min="2" max="7" step="1" value="3">128
+        <br>
+        Rules: <input id="rulesInput" value="B3/S23">
+      </p>
+    </div>
   </div>
-
+  
+  <div id="header">
+    <ul id="navigation">
+      <li><a id="link-life" href="#life">Life</a></li>
+      <li><a id="link-help" href="#help">What is Life?</a></li>
+    </ul>
+  </div>
+  
   <script type="application/dart" src="main.dart"></script>
   <script src="packages/browser/dart.js"></script>
 </body>
