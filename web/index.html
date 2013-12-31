@@ -7,14 +7,6 @@
 <link rel="stylesheet" href="life.css">
 </head>
 <body>
-    
-  <div id="help" class="panel">
-    <div class="content">
-      <p>
-        <iframe src="http://en.wikipedia.org/wiki/Conway's_Game_of_Life" width="100%" height="100%"></iframe>
-      </p>
-    </div>
-  </div>
   
   <div id="life" class="panel">
     <div class="content">
@@ -36,14 +28,61 @@
     </div>
   </div>
   
+  <div id="help" class="panel">
+    <div class="content">
+      <p>
+        <iframe id="help-iframe" width="100%" height="100%" frameborder="0"></iframe>
+      </p>
+    </div>
+  </div>
+  
   <div id="header">
     <ul id="navigation">
-      <li><a id="link-life" href="#life">Life</a></li>
-      <li><a id="link-help" href="#help">What is Life?</a></li>
+      <li><a class="showframe" id="link-life" href="#life">Life</a></li>
+      <li><a class="showframe" id="link-help" href="#help">What is Life?</a></li>
     </ul>
   </div>
   
   <script type="application/dart" src="main.dart"></script>
   <script src="packages/browser/dart.js"></script>
 </body>
+
+<script src="http://code.jquery.com/jquery-2.0.3.js"></script>
+<script>
+var iframes = 
+{
+  'help': 'http://en.wikipedia.org/wiki/Conway\'s_Game_of_Life',
+};
+
+var loadFrame = function (hash) {
+  var domElement = document.getElementById(hash + "-iframe");
+  if (iframes[hash] !== undefined) {
+    domElement.src = iframes[hash];
+    domElement.onmouseover = domElement.onload = function() { domElement.contentWindow.focus(); }
+  }
+  setTimeout(function() { clearAllIframes(hash); }, 200);
+}
+
+var clearAllIframes = function (except) {
+  for (iframe in iframes) {
+    if (iframe !== except) document.getElementById(iframe + "-iframe").src = "";
+  }
+}
+
+$(".showframe").click(function (event) {
+  var frameId = event.target.href.substring(event.target.href.indexOf("#") + 1);
+  if ("#" + frameId !== window.location.hash) loadFrame(frameId);
+  $(".showframe").each(function() {
+    this.id = "";
+  });
+  event.target.id = "selected";
+});
+
+var initialHash = window.location.hash.substring(window.location.hash.indexOf("#") + 1);
+if (initialHash === "") {
+  window.location.hash = initialHash = "life";
+}
+document.getElementById("link-" + initialHash).id = "selected";
+loadFrame(initialHash);
+</script>
 </html>
