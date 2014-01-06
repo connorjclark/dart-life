@@ -1,13 +1,55 @@
 <!DOCTYPE html>
-
 <html>
 <head>
-<meta charset="utf-8">
-<title>Life.</title>
-<link rel="stylesheet" href="life.css">
+  <title>Life</title>
+  <link rel="stylesheet" href="life.css">
+  <meta charset="utf-8">
+  <meta name="description" content="Conway's Game of Life reproduced with the Dart programming language">
+  <meta name="keywords" content="Hoten,games,Conway,life,dart">
+  <script type="application/dart" src="main.dart"></script>
+  <script src="packages/browser/dart.js"></script>
+  <script src="http://code.jquery.com/jquery-2.0.3.js"></script>
+  <script>
+  var iframes = 
+  {
+    'help': 'http://en.wikipedia.org/wiki/Conway\'s_Game_of_Life',
+  };
+  
+  var loadFrame = function (hash) {
+    var domElement = document.getElementById(hash + "-iframe");
+    if (iframes[hash] !== undefined) {
+      domElement.src = iframes[hash];
+      domElement.onmouseover = domElement.onload = function() { domElement.contentWindow.focus(); }
+    }
+    setTimeout(function() { clearAllIframes(hash); }, 200);
+  }
+  
+  var clearAllIframes = function (except) {
+    for (iframe in iframes) {
+      if (iframe !== except) document.getElementById(iframe + "-iframe").src = "#";
+    }
+  }
+    
+  $(document).ready(function() {
+    $(".showframe").click(function (event) {
+      var frameId = event.target.href.substring(event.target.href.indexOf("#") + 1);
+      if ("#" + frameId !== window.location.hash) loadFrame(frameId);
+      $(".showframe").each(function() {
+        this.id = "";
+      });
+      event.target.id = "selected";
+    });
+    
+    var initialHash = window.location.hash.substring(window.location.hash.indexOf("#") + 1);
+    if (initialHash === "") {
+      window.location.hash = initialHash = "life";
+    }
+    document.getElementById("link-" + initialHash).id = "selected";
+    loadFrame(initialHash);
+  });
+  </script>
 </head>
 <body>
-  
   <div id="life" class="panel">
     <div class="content">
       <p>
@@ -31,7 +73,7 @@
   <div id="help" class="panel">
     <div class="content">
       <p>
-        <iframe id="help-iframe" width="100%" height="100%" frameborder="0"></iframe>
+        <iframe src="#" id="help-iframe"></iframe>
       </p>
     </div>
   </div>
@@ -42,47 +84,5 @@
       <li><a class="showframe" id="link-help" href="#help">What is Life?</a></li>
     </ul>
   </div>
-  
-  <script type="application/dart" src="main.dart"></script>
-  <script src="packages/browser/dart.js"></script>
 </body>
-
-<script src="http://code.jquery.com/jquery-2.0.3.js"></script>
-<script>
-var iframes = 
-{
-  'help': 'http://en.wikipedia.org/wiki/Conway\'s_Game_of_Life',
-};
-
-var loadFrame = function (hash) {
-  var domElement = document.getElementById(hash + "-iframe");
-  if (iframes[hash] !== undefined) {
-    domElement.src = iframes[hash];
-    domElement.onmouseover = domElement.onload = function() { domElement.contentWindow.focus(); }
-  }
-  setTimeout(function() { clearAllIframes(hash); }, 200);
-}
-
-var clearAllIframes = function (except) {
-  for (iframe in iframes) {
-    if (iframe !== except) document.getElementById(iframe + "-iframe").src = "";
-  }
-}
-
-$(".showframe").click(function (event) {
-  var frameId = event.target.href.substring(event.target.href.indexOf("#") + 1);
-  if ("#" + frameId !== window.location.hash) loadFrame(frameId);
-  $(".showframe").each(function() {
-    this.id = "";
-  });
-  event.target.id = "selected";
-});
-
-var initialHash = window.location.hash.substring(window.location.hash.indexOf("#") + 1);
-if (initialHash === "") {
-  window.location.hash = initialHash = "life";
-}
-document.getElementById("link-" + initialHash).id = "selected";
-loadFrame(initialHash);
-</script>
 </html>
