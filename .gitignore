@@ -8,6 +8,8 @@
 
 # pub
 packages
+.dart_tool
+.packages
 
 # polymer
 .buildlog
@@ -17,3 +19,5 @@ pubspec.lock
 #other
 .DS_Store
 .settings
+
+dist

@@ -6,8 +6,6 @@
   <meta charset="utf-8">
   <meta name="description" content="Conway's Game of Life reproduced with the Dart programming language">
   <meta name="keywords" content="Hoten,games,Conway,life,dart">
-  <script type="application/dart" src="main.dart"></script>
-  <script src="packages/browser/dart.js"></script>
   <script src="http://code.jquery.com/jquery-2.0.3.js"></script>
   <script>
   var iframes = 
@@ -66,6 +64,7 @@
         Cell size (by 2^n px): 4<input type="range" id="cellSlider" min="2" max="7" step="1" value="3">128
         <br>
         Rules: <input id="rulesInput" value="B3/S23">
+        <br>(Ex: B3/S23 means a cell is born if it has three neighbords, and only stays if it has 2 or 3)
       </p>
     </div>
   </div>
@@ -84,5 +83,7 @@
       <li><a class="showframe" id="link-help" href="#help">What is Life?</a></li>
     </ul>
   </div>
+
+  <script src="main.js"></script>
 </body>
 </html>

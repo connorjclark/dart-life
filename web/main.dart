@@ -4,8 +4,8 @@ import 'dart:async' show Timer;
 import 'dart:math' show Random, pow;
 import 'life.dart';
 
-final stage = new Stage("stage", querySelector("#stage"));
-final rulesInput = querySelector("#rulesInput");
+final stage = new Stage(querySelector("#stage"));
+final rulesInput = querySelector("#rulesInput") as InputElement;
 Life life;
 Random rand = new Random();
 

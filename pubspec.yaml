@@ -1,5 +1,5 @@
-name: testxl
-description: A sample web application
+name: life
+description: Game of Life
 dependencies:
-  browser: any
+  # browser: any
   stagexl: any
