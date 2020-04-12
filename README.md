@@ -1,6 +1,7 @@
 # Life in Dart
 
 https://connorjclark.github.io/dart-life/#life
+https://hoten.cc/blog/life/
 
 Read more about [Conway's Game of Life](https://en.wikipedia.org/wiki/Conway%27s_Game_of_Life).
 
