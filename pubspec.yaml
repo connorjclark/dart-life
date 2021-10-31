@@ -1,5 +1,6 @@
 name: life
 description: Game of Life
+environment:
+  sdk: '>=2.10.0 <3.0.0'
 dependencies:
-  # browser: any
-  stagexl: any
+  stagexl: 2.0.0
