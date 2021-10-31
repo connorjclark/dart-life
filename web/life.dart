@@ -5,8 +5,8 @@ import 'dart:math' show Random;
 Random rand = new Random();
 
 class Cell extends Sprite {  
-  final neighbors = new List<Cell>();
-  final plusWrappedNeighbors = new List<Cell>();
+  final neighbors = <Cell>[];
+  final plusWrappedNeighbors = <Cell>[];
   bool state;
   
   Cell() {

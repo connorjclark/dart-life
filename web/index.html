@@ -7,82 +7,29 @@
   <meta name="description" content="Conway's Game of Life reproduced with the Dart programming language">
   <meta name="keywords" content="Hoten,games,Conway,life,dart">
   <script src="http://code.jquery.com/jquery-2.0.3.js"></script>
-  <script>
-  var iframes = 
-  {
-    'help': 'http://en.wikipedia.org/wiki/Conway\'s_Game_of_Life',
-  };
-  
-  var loadFrame = function (hash) {
-    var domElement = document.getElementById(hash + "-iframe");
-    if (iframes[hash] !== undefined) {
-      domElement.src = iframes[hash];
-      domElement.onmouseover = domElement.onload = function() { domElement.contentWindow.focus(); }
-    }
-    setTimeout(function() { clearAllIframes(hash); }, 200);
-  }
-  
-  var clearAllIframes = function (except) {
-    for (iframe in iframes) {
-      if (iframe !== except) document.getElementById(iframe + "-iframe").src = "#";
-    }
-  }
-    
-  $(document).ready(function() {
-    $(".showframe").click(function (event) {
-      var frameId = event.target.href.substring(event.target.href.indexOf("#") + 1);
-      if ("#" + frameId !== window.location.hash) loadFrame(frameId);
-      $(".showframe").each(function() {
-        this.id = "";
-      });
-      event.target.id = "selected";
-    });
-    
-    var initialHash = window.location.hash.substring(window.location.hash.indexOf("#") + 1);
-    if (initialHash === "") {
-      window.location.hash = initialHash = "life";
-    }
-    document.getElementById("link-" + initialHash).id = "selected";
-    loadFrame(initialHash);
-  });
-  </script>
 </head>
 <body>
-  <div id="life" class="panel">
-    <div class="content">
-      <p>
-        <canvas id="stage" width="640" height="640"></canvas>
-        <br>
-        <button id="playButton">Play!</button>
-        <button id="clearButton">Clear</button>
-        <br>
-        <input type="checkbox" id="gridCheckbox" checked>Grid?
-        <input type="checkbox" id="wrapCheckbox" checked>Wrap?
-        <br>
-        Speed (in ms): 10<input type="range" id="speedSlider" min="10" max="1000" step="1" value="100">1000
-        <br>
-        Cell size (by 2^n px): 4<input type="range" id="cellSlider" min="2" max="7" step="1" value="3">128
-        <br>
-        Rules: <input id="rulesInput" value="B3/S23">
-        <br>(Ex: B3/S23 means a cell is born if it has three neighbords, and only stays if it has 2 or 3)
-      </p>
+  <div class="content">
+    <div>
+      <canvas id="stage" width="640" height="640"></canvas>
+      <br>
+      <button id="playButton">Play!</button>
+      <button id="clearButton">Clear</button>
+      <br>
+      <input type="checkbox" id="gridCheckbox" checked>Grid?
+      <input type="checkbox" id="wrapCheckbox" checked>Wrap?
+      <br>
+      Speed (in ms): 10<input type="range" id="speedSlider" min="10" max="1000" step="1" value="100">1000
+      <br>
+      Cell size (by 2^n px): 4<input type="range" id="cellSlider" min="2" max="7" step="1" value="3">128
+      <br>
+      Rules: <input id="rulesInput" value="B3/S23">
+      <br>(Ex: B3/S23 means a cell is born if it has three neighbors, and only stays if it has 2 or 3)
+      
+      <div>
+        <a href="https://github.com/connorjclark/dart-life">GitHub</a>
+      </div>
     </div>
-  </div>
-  
-  <div id="help" class="panel">
-    <div class="content">
-      <p>
-        <iframe src="#" id="help-iframe"></iframe>
-      </p>
-    </div>
-  </div>
-  
-  <div id="header">
-    <ul id="navigation">
-      <li><a class="showframe" id="link-life" href="#life">Life</a></li>
-      <li><a class="showframe" id="link-help" href="#help">What is Life?</a></li>
-      <li><a href="https://github.com/connorjclark/dart-life">GitHub</a></li>
-    </ul>
   </div>
 
   <script src="main.js"></script>

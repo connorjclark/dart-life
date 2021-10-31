@@ -1,6 +1,5 @@
 import 'dart:html' hide MouseEvent;
 import 'package:stagexl/stagexl.dart';
-import 'dart:async' show Timer;
 import 'dart:math' show Random, pow;
 import 'life.dart';
 
@@ -10,6 +9,7 @@ Life life;
 Random rand = new Random();
 
 void main() {
+  stage.backgroundColor = Color.Transparent;
   new RenderLoop().addStage(stage);
   
   querySelector("#playButton").onClick.listen((_) => play(!life.isPlaying()));
